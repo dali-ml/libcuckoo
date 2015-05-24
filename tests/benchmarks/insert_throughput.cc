@@ -21,7 +21,7 @@
 #include <utility>
 #include <vector>
 
-#include "../../src/cuckoohash_map.hh"
+#include <tbb/concurrent_hash_map.h>
 #include "../test_util.hh"
 
 typedef uint32_t KeyType;
@@ -158,11 +158,13 @@ int main(int argc, char** argv) {
     }
 
     if (use_strings) {
-        auto *env = new InsertEnvironment<cuckoohash_map<KeyType2, ValType>>;
+        auto *env = new InsertEnvironment<tbb::concurrent_hash_map<
+                                              KeyType2, ValType>>;
         InsertThroughputTest(env);
         delete env;
     } else {
-        auto *env = new InsertEnvironment<cuckoohash_map<KeyType, ValType>>;
+        auto *env = new InsertEnvironment<tbb::concurrent_hash_map<
+                                              KeyType, ValType>>;
         InsertThroughputTest(env);
         delete env;
     }

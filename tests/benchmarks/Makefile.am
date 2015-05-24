@@ -1,3 +1,4 @@
+AM_LDFLAGS = -ltbb
 AM_CXXFLAGS = -O3 -DNDEBUG
 
 noinst_PROGRAMS = insert_throughput.out read_throughput.out
