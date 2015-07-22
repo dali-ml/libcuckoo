@@ -77,7 +77,7 @@ public:
 
         //! Casting to \p mapped_type runs a find for the stored key. If the
         //! find fails, it will thrown an exception.
-        operator mapped_type() const {
+        operator T() const {
             return owner_.find(key_);
         }
 
@@ -247,7 +247,11 @@ private:
 
         void eraseKV(size_t ind) {
             occupied_.reset(ind);
-            (&kvpair_noconst(ind))->~value_type();
+            #if defined(__CUDACC__) && defined(__linux__)
+                throw std::runtime_error("cookoohash_map::reaseKV - not implemented.");
+            #else
+                (&kvpair_noconst(ind))->value_type::~value_type();
+            #endif
         }
 
         Bucket() {
