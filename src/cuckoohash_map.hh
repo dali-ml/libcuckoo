@@ -250,7 +250,7 @@ private:
             #if defined(__CUDACC__) && defined(__linux__)
                 throw std::runtime_error("cookoohash_map::reaseKV - not implemented.");
             #else
-                (&kvpair_noconst(ind))->value_type::~value_type();
+                (&kvpair_noconst(ind))->~value_type();
             #endif
         }
 
